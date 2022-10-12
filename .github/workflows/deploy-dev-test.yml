@@ -12,6 +12,7 @@ env:
   REMOTE_SERVER_PORT: 22
   REMOTE_SERVER_HOST: cw.vezu.app
   REMOTE_SERVER_USER: ubuntu
+  SOURCE_DIR: "dist/"
   REMOTE_SERVER_TARGET_DIR: "/home/ubuntu/vezu/frontend/"
 
 jobs:
@@ -50,7 +51,7 @@ jobs:
           username: ${{env.REMOTE_SERVER_USER}}
           key: ${{ secrets.VEZU_CW_DEV_REMOTE_PRIVATE_KEY }}
           port: ${{env.REMOTE_SERVER_PORT}}
-          source: "dist/"
+          source: ${{env.SOURCE_DIR}}
           target: ${{env.REMOTE_SERVER_TARGET_DIR}}
 
       - name: Re-run frontend server
