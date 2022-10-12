@@ -1,4 +1,4 @@
-name: Deploy CW Dev Frontend
+name: CW [DEV] Frontend Deploy
 
 on:
   push:
