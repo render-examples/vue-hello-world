@@ -14,7 +14,6 @@ env:
   REMOTE_SERVER_PORT: 22
   REMOTE_SERVER_HOST: cw.vezu.app
   REMOTE_SERVER_USER: ubuntu
-  REMOTE_SERVER_PRIVATE_KEY: ${{ secrets.VEZU_CW_DEV_REMOTE_PRIVATE_KEY }}
   REMOTE_SERVER_TARGET_DIR: "/home/ubuntu/vezu/frontend/"
 
 jobs:
@@ -47,17 +46,17 @@ jobs:
       - name: Build
         run: npm run build
 
-#      - name: Copy dist to remote server
-#        uses: easingthemes/ssh-deploy@main
-#        with:
-#          node-version: ${{ matrix.node-version }}
-#        env:
-#          SOURCE: "dist/"
-#          REMOTE_HOST: ${{env.REMOTE_SERVER_HOST}}
-#          REMOTE_PORT: ${{env.REMOTE_SERVER_PORT}}
-#          REMOTE_USER: ${{env.REMOTE_SERVER_USER}}
-#          SSH_PRIVATE_KEY: ${{ secrets.VEZU_CW_DEV_REMOTE_PRIVATE_KEY }}
-#          TARGET: ${{env.REMOTE_SERVER_TARGET_DIR}}
+
+      - name: Copy dist to remote server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{env.REMOTE_SERVER_HOST}}
+          username: ${{env.REMOTE_SERVER_USER}}
+          key: ${{ secrets.VEZU_CW_DEV_REMOTE_PRIVATE_KEY }}
+          port: ${{env.REMOTE_SERVER_PORT}}
+          source: "dist/"
+          target: ${{env.REMOTE_SERVER_TARGET_DIR}}
+
 
       - name: Re-run frontend server
         uses: appleboy/ssh-action@master
