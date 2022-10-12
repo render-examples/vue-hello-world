@@ -1,0 +1,64 @@
+name: Deploy CW Dev Frontend
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+  workflow_dispatch:
+
+env:
+  VITE_APP_ADMIN_URL: vezu.app
+  VITE_APP_PROD_URL: cw.vezu.app
+  VITE_APP_TINY_MCE: 3rvuy99c82wuo2113ehy4goahzghx4zc1julajs9lpggdx0l
+  REMOTE_SERVER_PORT: 22
+  REMOTE_SERVER_HOST: cw.vezu.app
+  REMOTE_SERVER_USER: ubuntu
+  REMOTE_SERVER_TARGET_DIR: "/home/ubuntu/vezu/frontend/"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 16.x ]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            **/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Copy dist to remote server
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SOURCE: "dist/"
+          REMOTE_HOST: $REMOTE_SERVER_HOST
+          REMOTE_PORT: $REMOTE_SERVER_PORT
+          REMOTE_USER: $REMOTE_SERVER_USER
+          SSH_PRIVATE_KEY: ${{ secrets.VEZU_CW_DEV_REMOTE_USER }}
+          TARGET: $REMOTE_SERVER_TARGET_DIR
+
+      - name: Re-run frontend server
+        uses: appleboy/ssh-action@master
+        with:
+          host: $REMOTE_SERVER_HOST
+          username: $REMOTE_SERVER_USER
+          key: ${{ secrets.VEZU_CW_DEV_REMOTE_USER }}
+          script: pm2 restart all
