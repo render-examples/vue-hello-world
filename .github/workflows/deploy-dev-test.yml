@@ -25,39 +25,39 @@ jobs:
         node-version: [ 16.x ]
 
     steps:
-#      - name: Checkout repository
-#        uses: actions/checkout@v3
-#
-#      - name: Set up Node.js ${{ matrix.node-version }}
-#        uses: actions/setup-node@v3
-#        with:
-#          node-version: ${{ matrix.node-version }}
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-#      - name: Cache dependencies
-#        uses: actions/cache@v2
-#        with:
-#          node-version: ${{ matrix.node-version }}
-#          path: |
-#            **/node_modules
-#          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
-#
-#      - name: Install dependencies
-#        run: npm install --force
-#
-#      - name: Build
-#        run: npm run build
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
 
-#      - name: Copy dist to remote server
-#        uses: easingthemes/ssh-deploy@main
-#        with:
-#          node-version: ${{ matrix.node-version }}
-#        env:
-#          SOURCE: "dist/"
-#          REMOTE_HOST: $REMOTE_SERVER_HOST
-#          REMOTE_PORT: $REMOTE_SERVER_PORT
-#          REMOTE_USER: $REMOTE_SERVER_USER
-#          SSH_PRIVATE_KEY: ${{ secrets.VEZU_CW_DEV_REMOTE_PRIVATE_KEY }}
-#          TARGET: $REMOTE_SERVER_TARGET_DIR
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          path: |
+            **/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install dependencies
+        run: npm install --force
+
+      - name: Build
+        run: npm run build
+
+      - name: Copy dist to remote server
+        uses: easingthemes/ssh-deploy@main
+        with:
+          node-version: ${{ matrix.node-version }}
+        env:
+          SOURCE: "dist/"
+          REMOTE_HOST: ${{env.$REMOTE_SERVER_HOST}}
+          REMOTE_PORT: ${{env.$REMOTE_SERVER_PORT}}
+          REMOTE_USER: ${{env.$REMOTE_SERVER_USER}}
+          SSH_PRIVATE_KEY: ${{ secrets.VEZU_CW_DEV_REMOTE_PRIVATE_KEY }}
+          TARGET: ${{env.$REMOTE_SERVER_TARGET_DIR}}
 
       - name: Re-run frontend server
         uses: appleboy/ssh-action@master
