@@ -2,9 +2,9 @@ name: Deploy CW Dev Frontend
 
 on:
   push:
-    branches: [ ${{ env.GITHUB_REF }} ]
+    branches: [ ${ { github.ref } } ]
   pull_request:
-    branches: [ ${{ env.GITHUB_BASE_REF }} ]
+    branches: [ ${ { github.base.ref } } ]
   workflow_dispatch:
 
 env:
