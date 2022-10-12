@@ -64,5 +64,5 @@ jobs:
         with:
           host: $REMOTE_SERVER_HOST
           username: $REMOTE_SERVER_USER
-          key: ${{secrets.VEZU_CW_DEV_REMOTE_PRIVATE_KEY}}
+          key: $REMOTE_SERVER_PRIVATE_KEY
           script: pm2 restart all
