@@ -64,12 +64,5 @@ jobs:
         with:
           host: ${{env.REMOTE_SERVER_HOST}}
           username: ${{env.REMOTE_SERVER_USER}}
-          key: "-----BEGIN OPENSSH PRIVATE KEY-----
-b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
-QyNTUxOQAAACD4ZiDBq1LfAn6B5ZQvYaLdu+yfTtIpBFLGy7xmZUaK3QAAAKhn6DYWZ+g2
-FgAAAAtzc2gtZWQyNTUxOQAAACD4ZiDBq1LfAn6B5ZQvYaLdu+yfTtIpBFLGy7xmZUaK3Q
-AAAECaKxH1gE/5tc6BbQweWlJdyVDxPXoED/UOvKWFNtOQnPhmIMGrUt8CfoHllC9hot27
-7J9O0ikEUsbLvGZlRordAAAAJGFsaWFrc2FuZHIua2FwYXNoeWxhdUBzb2Z0ZW5zaXR5Lm
-NvbQE=
------END OPENSSH PRIVATE KEY-----"
+          key: ${{ secrets.VEZU_CW_DEV_REMOTE_PRIVATE_KEY }}
           script: pm2 restart all
