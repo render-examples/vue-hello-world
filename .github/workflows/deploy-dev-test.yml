@@ -14,7 +14,7 @@ env:
   REMOTE_SERVER_PORT: 22
   REMOTE_SERVER_HOST: cw.vezu.app
   REMOTE_SERVER_USER: ubuntu
-  REMOTE_SERVER_PRIVATE_KEY: ubuntu
+  REMOTE_SERVER_PRIVATE_KEY: ${{ secrets.VEZU_CW_DEV_REMOTE_PRIVATE_KEY }}
   REMOTE_SERVER_TARGET_DIR: "/home/ubuntu/vezu/frontend/"
 
 jobs:
@@ -64,5 +64,5 @@ jobs:
         with:
           host: $REMOTE_SERVER_HOST
           username: $REMOTE_SERVER_USER
-          key: ${{ secrets.VEZU_CW_DEV_REMOTE_PRIVATE_KEY }}
+          key: ${{secrets.VEZU_CW_DEV_REMOTE_PRIVATE_KEY}}
           script: pm2 restart all
