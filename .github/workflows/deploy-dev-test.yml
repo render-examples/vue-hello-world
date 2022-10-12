@@ -46,7 +46,6 @@ jobs:
       - name: Build
         run: npm run build
 
-
       - name: Copy dist to remote server
         uses: appleboy/scp-action@master
         with:
@@ -56,7 +55,6 @@ jobs:
           port: ${{env.REMOTE_SERVER_PORT}}
           source: "dist/"
           target: ${{env.REMOTE_SERVER_TARGET_DIR}}
-
 
       - name: Re-run frontend server
         uses: appleboy/ssh-action@master
