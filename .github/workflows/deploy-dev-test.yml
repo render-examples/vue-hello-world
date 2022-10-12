@@ -49,6 +49,8 @@ jobs:
 
 #      - name: Copy dist to remote server
 #        uses: easingthemes/ssh-deploy@main
+#        with:
+#          node-version: ${{ matrix.node-version }}
 #        env:
 #          SOURCE: "dist/"
 #          REMOTE_HOST: $REMOTE_SERVER_HOST
@@ -60,8 +62,8 @@ jobs:
       - name: Re-run frontend server
         uses: appleboy/ssh-action@master
         with:
-          host: $REMOTE_SERVER_HOST
-          username: $REMOTE_SERVER_USER
+          host: ${{REMOTE_SERVER_HOST}}
+          username: ${{REMOTE_SERVER_USER}}
           key: "-----BEGIN OPENSSH PRIVATE KEY-----
 b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
 QyNTUxOQAAACD4ZiDBq1LfAn6B5ZQvYaLdu+yfTtIpBFLGy7xmZUaK3QAAAKhn6DYWZ+g2
