@@ -25,32 +25,30 @@ jobs:
         node-version: [ 16.x ]
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+#      - name: Checkout repository
+#        uses: actions/checkout@v3
+#
+#      - name: Set up Node.js ${{ matrix.node-version }}
+#        uses: actions/setup-node@v3
+#        with:
+#          node-version: ${{ matrix.node-version }}
 
-      - name: Set up Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Cache dependencies
-        uses: actions/cache@v2
-        with:
-          node-version: ${{ matrix.node-version }}
-          path: |
-            **/node_modules
-          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
-
-      - name: Install dependencies
-        run: npm install --force
-
-      - name: Build
-        run: npm run build
+#      - name: Cache dependencies
+#        uses: actions/cache@v2
+#        with:
+#          node-version: ${{ matrix.node-version }}
+#          path: |
+#            **/node_modules
+#          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+#
+#      - name: Install dependencies
+#        run: npm install --force
+#
+#      - name: Build
+#        run: npm run build
 
 #      - name: Copy dist to remote server
 #        uses: easingthemes/ssh-deploy@main
-#        with:
-#          node-version: ${{ matrix.node-version }}
 #        env:
 #          SOURCE: "dist/"
 #          REMOTE_HOST: $REMOTE_SERVER_HOST
