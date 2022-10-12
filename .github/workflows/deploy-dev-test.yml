@@ -53,11 +53,11 @@ jobs:
           node-version: ${{ matrix.node-version }}
         env:
           SOURCE: "dist/"
-          REMOTE_HOST: ${{env.$REMOTE_SERVER_HOST}}
-          REMOTE_PORT: ${{env.$REMOTE_SERVER_PORT}}
-          REMOTE_USER: ${{env.$REMOTE_SERVER_USER}}
+          REMOTE_HOST: ${{env.REMOTE_SERVER_HOST}}
+          REMOTE_PORT: ${{env.REMOTE_SERVER_PORT}}
+          REMOTE_USER: ${{env.REMOTE_SERVER_USER}}
           SSH_PRIVATE_KEY: ${{ secrets.VEZU_CW_DEV_REMOTE_PRIVATE_KEY }}
-          TARGET: ${{env.$REMOTE_SERVER_TARGET_DIR}}
+          TARGET: ${{env.REMOTE_SERVER_TARGET_DIR}}
 
       - name: Re-run frontend server
         uses: appleboy/ssh-action@master
