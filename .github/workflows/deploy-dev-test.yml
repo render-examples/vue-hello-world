@@ -52,7 +52,7 @@ jobs:
           REMOTE_HOST: $REMOTE_SERVER_HOST
           REMOTE_PORT: $REMOTE_SERVER_PORT
           REMOTE_USER: $REMOTE_SERVER_USER
-          SSH_PRIVATE_KEY: ${{ secrets.VEZU_CW_DEV_REMOTE_USER }}
+          SSH_PRIVATE_KEY: ${{ secrets.VEZU_CW_DEV_REMOTE_PRIVATE_KEY }}
           TARGET: $REMOTE_SERVER_TARGET_DIR
 
       - name: Re-run frontend server
@@ -60,5 +60,5 @@ jobs:
         with:
           host: $REMOTE_SERVER_HOST
           username: $REMOTE_SERVER_USER
-          key: ${{ secrets.VEZU_CW_DEV_REMOTE_USER }}
+          key: ${{ secrets.VEZU_CW_DEV_REMOTE_PRIVATE_KEY }}
           script: pm2 restart all
