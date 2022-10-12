@@ -35,7 +35,6 @@ jobs:
       - name: Cache dependencies
         uses: actions/cache@v3
         with:
-          node-version: ${{ matrix.node-version }}
           path: |
             **/node_modules
           key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
